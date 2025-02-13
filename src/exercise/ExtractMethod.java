@@ -23,9 +23,7 @@ public class ExtractMethod {
 	  double outstanding = 0.0;
 
 	  // print banner
-	  System.out.println ("*****************************");
-	  System.out.println ("****** Customer totals ******");
-	  System.out.println ("*****************************");
+	  printBanner();
 
 	  // print owings
 	  while (elements.hasMoreElements()) {
@@ -33,6 +31,18 @@ public class ExtractMethod {
 	    outstanding += each.getAmount();
 	  }
 
+	  // print details
+	  printDetails(outstanding);
+	}
+	
+	void printBanner() {
+	  // print banner
+	  System.out.println ("*****************************");
+	  System.out.println ("****** Customer totals ******");
+	  System.out.println ("*****************************");
+	}
+	
+	void printDetails(double outstanding) {
 	  // print details
 	  System.out.println("name: " + name);
 	  System.out.println("amount: " + outstanding);
