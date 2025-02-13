@@ -17,18 +17,41 @@ public class ParameterizeObject {
 			  transactions.add(new Transaction(1300, new Date(1300)));
 		  }
 
-		  public double getFlowBetween(Date start, Date end) {
+		  public double getFlowBetween(DateRange dateRange) {
 		    double result = 0;
 		    Enumeration e = transactions.elements();
 		    while (e.hasMoreElements()) {
 		      Transaction each = (Transaction) e.nextElement();
-		      if (each.getDate().compareTo(start) >= 0 && each.getDate().compareTo(end) <= 0) {
+		      if (dateRange.includes(each.getDate())) {
 		        result += each.getValue();
 		      }
 		    }
 		    return result;
 		  }
 		}
+	
+	//DateRange Class
+	class DateRange {
+	    private Date start;
+	    private Date end;
+
+	    public DateRange(Date start, Date end) {
+	        this.start = start;
+	        this.end = end;
+	    }
+
+	    public boolean includes(Date date) {
+	        return (date.compareTo(start) >= 0 && date.compareTo(end) <= 0);
+	    }
+
+	    public Date getStart() {
+	        return start;
+	    }
+
+	    public Date getEnd() {
+	        return end;
+	    }
+	}
 
 		class Transaction {
 		  private Date chargeDate;
@@ -48,9 +71,9 @@ public class ParameterizeObject {
 
 	private void test() {
 		Account account = new Account();
-		Date startDate = new Date(1050);
-		Date endDate = new Date(1250);
-		double flow = account.getFlowBetween(startDate, endDate);
+		//CHANGE TO DateRange
+	    DateRange dateRange = new DateRange(new Date(1050), new Date(1250));
+	    double flow = account.getFlowBetween(dateRange); 
 		System.out.println(flow);
 		
 	}
